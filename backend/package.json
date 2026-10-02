@@ -1,0 +1,36 @@
+{
+  "name": "smartpark-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Apartment Car Parking Management System - Express + MongoDB API (ANPR, slot allocation, A* navigation)",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node database/seed.js",
+    "seed:status": "node database/seed.js --status",
+    "test": "node tests/run.js"
+  },
+  "keywords": [
+    "parking",
+    "anpr",
+    "ocr",
+    "astar",
+    "mongodb",
+    "express"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.20.1",
+    "morgan": "^1.10.1"
+  }
+}

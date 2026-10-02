@@ -1,0 +1,38 @@
+{
+  "name": "smart-parking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart Apartment Car Parking Management System - ANPR, automatic slot allocation and indoor navigation for a 48-bay apartment campus",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "dev": "node scripts/dev.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start",
+    "seed": "npm --prefix backend run seed",
+    "test": "npm --prefix backend test",
+    "health": "node scripts/health.js"
+  },
+  "keywords": [
+    "smart-parking",
+    "anpr",
+    "ocr",
+    "number-plate-recognition",
+    "astar",
+    "dijkstra",
+    "mongodb",
+    "express",
+    "react",
+    "vite"
+  ],
+  "license": "MIT"
+}
