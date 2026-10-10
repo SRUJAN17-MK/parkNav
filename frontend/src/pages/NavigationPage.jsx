@@ -14,6 +14,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import ParkingMap from '../maps/ParkingMap.jsx';
 import RouteSteps from '../components/RouteSteps.jsx';
+import PrintableParkingTicket from '../components/PrintableParkingTicket.jsx';
 import { api } from '../services/api.js';
 import { useParking } from '../services/parking.jsx';
 import { useToast } from '../components/Toast.jsx';
@@ -27,6 +28,7 @@ import {
   IconClock,
   IconZap,
   IconRefresh,
+  IconPrint,
 } from '../data/icons.jsx';
 
 const STEP_MS = 2600;
@@ -68,6 +70,7 @@ export default function NavigationPage() {
 
   const [navigating, setNavigating] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
+  const [showTicketModal, setShowTicketModal] = useState(false);
   const timer = useRef(null);
 
   const slot = useMemo(() => slots.find((s) => s.slotId === slotId) || null, [slots, slotId]);
@@ -382,10 +385,20 @@ export default function NavigationPage() {
                     ]}
                   />
 
-                  <button className="btn btn-primary btn-lg btn-block" onClick={startNavigation} disabled={navigating}>
-                    {navigating ? <Spinner /> : <IconPlay size={17} />}
-                    {navigating ? `Step ${activeStep + 1} of ${route.steps.steps.length}` : 'Start navigation'}
-                  </button>
+                  <div className="stack" style={{ gap: 9 }}>
+                    <button className="btn btn-primary btn-lg btn-block" onClick={startNavigation} disabled={navigating}>
+                      {navigating ? <Spinner /> : <IconPlay size={17} />}
+                      {navigating ? `Step ${activeStep + 1} of ${route.steps.steps.length}` : 'Start navigation'}
+                    </button>
+
+                    <button
+                      className="btn btn-cyan btn-lg btn-block"
+                      onClick={() => setShowTicketModal(true)}
+                      title="Print physical bus-ticket style parking pass"
+                    >
+                      <IconPrint size={17} /> Print Parking Ticket
+                    </button>
+                  </div>
 
                   {navigating || activeStep > -1 ? (
                     <div className="alert alert-info">
@@ -419,6 +432,15 @@ export default function NavigationPage() {
               </Card>
             </div>
           </div>
+
+          {/* Printable Ticket & Modal */}
+          <PrintableParkingTicket
+            route={route}
+            mapData={mapData}
+            slot={slot}
+            isOpen={showTicketModal}
+            onClose={() => setShowTicketModal(false)}
+          />
         </>
       ) : null}
     </div>

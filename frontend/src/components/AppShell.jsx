@@ -18,6 +18,7 @@ import {
   IconRadar,
 } from '../data/icons.jsx';
 import { useParking } from '../services/parking.jsx';
+import LegalModal from './LegalModal.jsx';
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: IconDashboard, group: 'Operations' },
@@ -50,6 +51,8 @@ export default function AppShell() {
   const [title, subtitle] = TITLES[location.pathname] || ['SmartPark', 'Apartment parking management'];
 
   const groups = [...new Set(NAV.map((n) => n.group))];
+
+  const [legalModal, setLegalModal] = useState(null);
 
   return (
     <div className="app">
@@ -100,6 +103,23 @@ export default function AppShell() {
           <button className="btn btn-sm btn-block" onClick={logout}>
             <IconLogout size={15} /> Sign out
           </button>
+          <div className="row" style={{ justifyContent: 'center', gap: 10, fontSize: 11, color: 'var(--text-mute)', marginTop: 4 }}>
+            <button
+              className="btn btn-ghost"
+              style={{ padding: 0, fontSize: 11, color: 'var(--text-mute)' }}
+              onClick={() => setLegalModal('privacy')}
+            >
+              Privacy Policy
+            </button>
+            <span>•</span>
+            <button
+              className="btn btn-ghost"
+              style={{ padding: 0, fontSize: 11, color: 'var(--text-mute)' }}
+              onClick={() => setLegalModal('terms')}
+            >
+              Terms & Rules
+            </button>
+          </div>
         </div>
       </aside>
 
@@ -122,6 +142,12 @@ export default function AppShell() {
           <Outlet />
         </main>
       </div>
+
+      <LegalModal
+        isOpen={Boolean(legalModal)}
+        type={legalModal}
+        onClose={() => setLegalModal(null)}
+      />
     </div>
   );
 }
